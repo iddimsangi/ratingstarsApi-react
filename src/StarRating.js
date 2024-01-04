@@ -3,6 +3,7 @@ import "./App.css";
 import Star from "./Star";
 const StarRating = ({ maxRatings }) => {
   const [rating, setRating] = useState(0);
+  const[mouseRating, setMouseRating] = useState(0);
   return (
     <div className="StarRating">
       {Array.from({ length: maxRatings }, (_, i) => (
@@ -12,10 +13,12 @@ const StarRating = ({ maxRatings }) => {
           color="red"
           Hsize={3}
           Wsize={3}
-          full={rating >= i + 1}
+          fullStarDisplay={mouseRating ? mouseRating >= i + 1 : rating >= i + 1}
+          onMouseHovering={() => setMouseRating(i + 1)}
+          onMouseLeaving={() => setMouseRating(0)}
         />
       ))}
-      <p className="textstyle">{rating}</p>
+      <p className="textstyle">{mouseRating||rating || ""}</p>
     </div>
   );
 };
